@@ -4,10 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongo = require('mongodb').MongoClient;
+//var mongo = require('mongodb').MongoClient;
 var index = require('./routes/index');
 var users = require('./routes/users');
-var facebook = require('./api/facebook');
+
+// APIs
+var fourSquare = require('./api/fourSquare');
 
 var app = express();
 
@@ -25,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/facebook', facebook);
 
 
 app.get(['/', '/index.html', '/home', '/index'], function(req,res){
@@ -58,5 +59,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+fourSquare.run("./aandw.json");
 
 module.exports = app;
