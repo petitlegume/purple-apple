@@ -2,7 +2,7 @@ var express = require('express');
 var gplaces = require('../api/gPlaces.js');
 var router = express.Router();
 
-
+//
 //gplaces example
 params = {
     loc: {
@@ -16,6 +16,8 @@ params = {
 gplaces.search(params).done(function(res){
     console.log(res);
 });
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
