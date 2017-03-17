@@ -1,5 +1,5 @@
 var express = require('express');
-var gplaces = require('./gPlaces.js');
+var gplaces = require('../api/gPlaces.js');
 var router = express.Router();
 
 
