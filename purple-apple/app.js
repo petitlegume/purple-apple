@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb').MongoClient;
 var index = require('./routes/index');
 var users = require('./routes/users');
-var facebook = require('./api/facebook');
 
 var app = express();
 
@@ -25,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/facebook', facebook);
 
 
 app.get(['/', '/index.html', '/home', '/index'], function(req,res){
