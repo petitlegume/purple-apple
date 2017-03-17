@@ -28,7 +28,17 @@ var store = new Store(dataTemplate.data);
 
 /* Testing Facebook api */
 router.get('/api/facebook', function(req, res, next){
-    facebook.search().done(function(data){
+
+    params = {
+    loc: {
+        lat: 45.525,
+        lon: -73.57
+    },
+    radius: 1000,
+    keyword: "banquise"
+}
+
+    facebook.search(params).done(function(data){
         res.send(data);
     });
 });
