@@ -1,6 +1,6 @@
 var foursquare = (require('foursquarevenues'))('ILPEEW5HKDHF0PXBCLLNQPQ00Q3LBRA5CLY0PLMQS0XAB12W', 'CGEDZ0PM3YTUX5TFBD1BYLWAWUZZFGSJGDASQYQZWAYA2D1B');
 
-function callFoursquare(jsonobject){
+function nearestCompetitor(jsonobject){
 
 }
 
@@ -45,3 +45,5 @@ foursquare.exploreVenues(params, function(error, venues) {
         //console.log(venues);
     }
 });
+
+module.exports = nearestCompetitor();
