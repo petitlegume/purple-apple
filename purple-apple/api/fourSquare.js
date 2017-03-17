@@ -4,13 +4,20 @@ var foursquare = (require('foursquarevenues'))('ILPEEW5HKDHF0PXBCLLNQPQ00Q3LBRA5
 function run(filename){
     var params = {
         "ll": null,
-        "categoryId": null,
+        "intent": "browse",
+        "radius": "2000",
+        "categoryId": []
     };
 
     function nearestCompetitor(){
         var jsonobject = require(filename);
         //console.log(jsonobject);
-        params.categoryId = jsonobject.categories;
+
+        // use all categories from input json
+        // for (i in jsonobject.categories){
+        //     params.categoryId.push(jsonobject.categories[i].id)
+        // }
+        params.categories = ["4bf58dd8d48988d16c941735"];
         params.ll = jsonobject.loc_latlong.split(",").reverse().toString();
     }
     nearestCompetitor();
@@ -18,8 +25,25 @@ function run(filename){
     foursquare.getVenues(params, function(error, venues) {
         console.log("Number of venues: " + venues.response.venues.length);
         if (!error) {
-            for(venue in venues.response.venues)
-                console.log(venues.response.venues[venue].name + "; Address: " + venues.response.venues[venue].location.address);
+            venues = venues.response.venues;
+            printdata = {};
+            for (i = 0; i < venues.length; i++) {
+                venue = venues[i];
+                printdata = {
+                    name: venue.name,
+                    distance: venue.location.distance,
+                    address: venue.location.address,
+                    rating: venue.rating,
+                    stats: venue.stats,
+                    category: {
+                        id: venue.categories[0].id,
+                        name: venue.categories[0].name
+                    }
+                };
+                console.log(printdata);
+                console.log('\n')
+            }
+
         }
     });
 
