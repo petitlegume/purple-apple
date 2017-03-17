@@ -8,15 +8,13 @@ var request = require('request');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-    var clientId = '641741966019779';
-    var clientSecret = '14d89dc6658614ffd23cb6ca314581df';
-    request.get("https://graph.facebook.com/endpoint?key=value&amp;access_token= " + clientId + "|" + clientSecret ,function(error,response,body){
-    // request.get("https://graph.facebook.com/oauth/access_token%20?client_id=" + clientId + "&client_secret=" + clientSecret + "&grant_type=client_credentials" ,function(error,response,body){
+    var token = '641741966019779|tRYxL3sSUqUDa94vj6k8NwyDFJA';
+
+    request.get("https://graph.facebook.com/search?q=ritual&type=place&center=37.76,-122.427&distance=1000&access_token=" + token ,function(error,response,body){
         if(error){
             res.send(error)
         }else{
-        	res.send("Hello");
-            // res.redirect('/api/facebook/home');
+            res.send(response);
         }
     });
 
