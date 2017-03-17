@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var facebook = require('./api/facebook');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/api/facebook', facebook);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,25 +43,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-// API
-var foursquare = (require('foursquarevenues'))('ILPEEW5HKDHF0PXBCLLNQPQ00Q3LBRA5CLY0PLMQS0XAB12W', 'CGEDZ0PM3YTUX5TFBD1BYLWAWUZZFGSJGDASQYQZWAYA2D1B');
-
-var params = {
-  "ll": "45.5046903,-73.5726995"
-};
-
-foursquare.getVenues(params, function(error, venues) {
-  if (!error) {
-    console.log(venues);
-  }
-});
-
-foursquare.exploreVenues(params, function(error, venues) {
-  if (!error) {
-    console.log(venues);
-  }
 });
 
 
