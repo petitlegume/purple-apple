@@ -1,7 +1,10 @@
 var express = require('express');
 var gplaces = require('../api/gPlaces.js');
+var Store = require('../models/store.js');
 var router = express.Router();
 
+var dataTemplate = require('../dataTemplates/aw.js');
+var store = new Store(dataTemplate.data);
 
 // //gplaces example
 // params = {
