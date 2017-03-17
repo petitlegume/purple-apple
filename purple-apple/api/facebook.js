@@ -8,13 +8,15 @@ var request = require('request');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
+    var query = "macdonald";
     var clientId = '641741966019779';
     var clientSecret = '14d89dc6658614ffd23cb6ca314581df';
-    request.get("https://graph.facebook.com/oauth/access_token%20?client_id=" + clientId + "&client_secret=" + clientSecret + "&grant_type=client_credentials" ,function(error,response,body){
+    request.get("https://graph.facebook.com/search?fields=id,name,location,overall_rating&q=" + query + "&type=place&center=45.525476,%20-73.574596&distance=10000&access_token=" + clientId + "|" + clientSecret ,function(error,response,body){
         if(error){
             res.send(error)
         }else{
-            res.redirect('/api/facebook/home');
+            console.log(res);
+            res.send('Test');
         }
     });
 
