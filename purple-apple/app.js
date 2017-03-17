@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongo = require('mongodb').MongoClient;
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -24,6 +24,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+
+app.get(['/', '/index.html', '/home', '/index'], function(req,res){
+	mongo.connect("http://localhost:27017/purpleDB",function(err,db){
+    if(err){
+      console.log("Error opening db: ",err);
+      res.sendStatus(500);
+    }
+    else{
+      console.log("DB opened");
+    }
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
