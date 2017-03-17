@@ -13,5 +13,19 @@ var foursquare = (require('foursquarevenues'))('ILPEEW5HKDHF0PXBCLLNQPQ00Q3LBRA5
     foursquare.exploreVenues(params, function(error, venues) {
         if (!error) {
   			console.log(venues);
+
+            itemVenue = items[item]['venue'];
+            itemTips = items[item]['tips'];
+
+            console.log('Venue Name: ', itemVenue.name);
+            console.log('Item tips count: ', itemTips.length);
+
+            /* Here we can loop all tips of  this item */
+            var itemTip = {}; /* tip is an object */
+            for(var tip in itemTips){
+                itemTip = itemTips[tip];
+                console.log('Tip text: ', itemTip.text);
+            }
+
         }
     });
