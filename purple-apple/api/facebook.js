@@ -20,11 +20,6 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/home', function(req, res, next){
-    console.log(req);
-    res.send(JSON.stringify(req));
-    res.send('Hello');
-});
 
 module.exports = router;
 
