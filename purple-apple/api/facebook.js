@@ -16,10 +16,14 @@ function search() {
 
     var token = '641741966019779|tRYxL3sSUqUDa94vj6k8NwyDFJA';
 
-    request.get("https://graph.facebook.com/search?q=ritual&type=place&center=37.76,-122.427&distance=1000&access_token=" + token ,function(error,response,body){
+    request.get(url,function(error,response,body){
+        console.log("Finished get");
         if(error){
+            console.log("Error reached");
             return error;
         }else{
+            console.log("Response reached");
+            console.log(response);
             return response;
         }
     });
