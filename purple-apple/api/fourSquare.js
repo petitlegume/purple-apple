@@ -17,7 +17,7 @@ function run(filename){
         // for (i in jsonobject.categories){
         //     params.categoryId.push(jsonobject.categories[i].id)
         // }
-        params.categories = ["4bf58dd8d48988d16c941735"];
+        params.categoryId = ["4bf58dd8d48988d16c941735"];
         params.ll = jsonobject.loc_latlong.split(",").reverse().toString();
     }
     nearestCompetitor();
