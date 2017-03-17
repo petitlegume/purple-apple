@@ -25,10 +25,11 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
+/* Testing Facebook api */
 router.get('/api/facebook', function(req, res, next){
-	var response = facebookRef.search();
-	console.log(response);
-	res.send(response);
+    facebookRef.search().done(function(data){
+        res.send(data);
+    });
 });
 
 
