@@ -1,7 +1,7 @@
 var config = require("./config.js");
 var assert = require("assert");
 var Promise = require('promise');
-var NearBySearch = require("../node_modules/googleplaces/lib/NearBySearch");
+var NearBySearch = require("googleplaces/lib/NearBySearch");
 var nearBySearch = new NearBySearch(config.apiKey, config.outputFormat);
 
 module.exports = {
