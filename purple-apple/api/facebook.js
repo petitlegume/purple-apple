@@ -10,15 +10,22 @@ router.get('/', function(req, res, next) {
 
     var clientId = '641741966019779';
     var clientSecret = '14d89dc6658614ffd23cb6ca314581df';
-
-    request.get("https://graph.facebook.com/oauth/access_token%20?client_id=" + clientId + "&client_secret=" + clientSecret + "&grant_type=client_credentials" + token ,function(error,response,body){
+    request.get("https://graph.facebook.com/endpoint?key=value&amp;access_token= " + clientId + "|" + clientSecret ,function(error,response,body){
+    // request.get("https://graph.facebook.com/oauth/access_token%20?client_id=" + clientId + "&client_secret=" + clientSecret + "&grant_type=client_credentials" ,function(error,response,body){
         if(error){
             res.send(error)
         }else{
-            res.send(body);
+        	res.send("Hello");
+            // res.redirect('/api/facebook/home');
         }
     });
 
+});
+
+router.get('/home', function(req, res, next){
+	console.log(req);
+	res.send(JSON.stringify(req));
+	res.send('Hello');
 });
 
 module.exports = router;
