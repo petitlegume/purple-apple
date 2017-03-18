@@ -8,7 +8,7 @@ function ensureApiSearch(params, expectedResultsLength) {
       if(!expectedResultsLength) {
         should(actualResults).be.null;
       } else {
-        expect(actualResults.length).to.be.above(expectedResultsLength);
+          expect(actualResults.length).to.be.at.least(expectedResultsLength);
       }
       done();
     });
@@ -25,6 +25,6 @@ describe('gplaces api', function () {
         },
         radius: 1000,
         category: "burger"
-        },  1));
+        },  14));
   });
 });
