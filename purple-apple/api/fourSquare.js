@@ -7,15 +7,15 @@ module.exports = {
 
 function search(params){
 
-    var fqparams = {
-        "ll": [params.loc.lat, params.loc.lon],
+    var parameters = {
+        "ll": [params.loc.lat, params.loc.lon].toString(),
         "intent": "browse",
         "radius": params.radius,
-        "categoryId": params.category
+        "categoryId": [params.categoryId]
     };
 
     return new Promise(function (fulfill, reject){
-        foursquare.getVenues(fqparams,function(error,response){
+        foursquare.getVenues(parameters,function(error,response){
             if (error) reject(error);
             else fulfill(response);
         });

@@ -18,7 +18,10 @@ function Store(params, radius) {
     this.name = params.loc_name;
     var latlon = params.loc_latlong.split(",");
     this.latlon = [latlon[1],latlon[0]];
-    this.category = mostAllegible;
+    console.log('\n\n\n\n');
+    console.log(mostAllegible);
+    this.category = mostAllegible.name;
+    this.categoryId = mostAllegible.id; // fix hardcoded, (mostAllegible needs to give us category name and id)
     this.radius = radius;
 
     this.competitors = {
@@ -36,11 +39,11 @@ function findAllegibles(keywords, categories) {
 
     for (var j = 0; j < categories.length; j++) {
 
-        var category = categories[j].name;
+        var category = categories[j];
 
         for (var i = 0; i < keywords.length; i++) {
 
-            if (category.match(keywords[i]) || keywords[i].match(category)) {
+            if (category.name.match(keywords[i]) || keywords[i].match(category.name)) {
 
                 var correspondance = findInCorrespondances(category, correspondances);
 
@@ -67,9 +70,9 @@ function buildProxy(){
     }
 }
 
-function findInCorrespondances(name, correspondances) {
+function findInCorrespondances(category, correspondances) {
     for (var i = 0; i < correspondances.length; i++) {
-        if (correspondances[i].name == name) return correspondances[i];
+        if (correspondances[i].category.name == category.name) return correspondances[i];
     }
     return null;
 }
@@ -95,30 +98,26 @@ function gatherCompetitors() {
             lon: this.latlon[1]
         },
         radius: this.radius,
-        category: this.category
-    }
+        category: this.category,
+        categoryId: this.categoryId
+    };
+    console.log(parameters)
 
-    // parameters = {
-    //     loc:{
-    //         lat: 45.525476,
-    //         lon: -73.574596
-    //     },
-    //     radius: 1000,
-    //     category: 'burger'
-    // }
 
-    var competitors = {};
+    var promises = [];
 
-    return new Promise(function (fulfill, reject){
+    promises.push( new Promise(function (fulfill, reject){
         gplaces.search(parameters).done(function (res) {
-            try {            //competitors.gplacesResults = res.results;
-                fulfill(res);
+            try {
+                // competitors.gplacesResults = res;
+                fulfill(res)
             }
             catch(ex){
                 reject(ex);
             }
         }, reject);
-    });
+    }));
+
 
     // return new Promise(function (fulfill, reject){
     //     facebook.search(parameters).done(function (res) {
@@ -133,12 +132,25 @@ function gatherCompetitors() {
 
 
 
-/*
 
-    fourSquare.search(parameters).done(function(data){
-        var venues = data.response.venues;
-        this.competitors.fsResults = venues;
-    });
-*/
+    // facebook.search(parameters).done(function(data){
+    //     console.log(data);
+    //     this.competitors.fbResults = data;
+    // });
+
+    promises.push( new Promise(function (fulfill, reject){
+        fourSquare.search(parameters).done(function(data){
+            try {
+                // competitors.fsResults = data.response.venues;
+                fulfill(data.response.venues);
+            }
+            catch(ex){
+                reject(ex);
+            }
+        }, reject);
+    }));
+
+
+    return Promise.all(promises);
 
 }
