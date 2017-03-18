@@ -31,6 +31,7 @@ function Store(params, radius) {
 
     this.gatherCompetitors = gatherCompetitors;
     this.buildProxy = buildProxy;
+    this.merge = merge;
 }
 
 function merge(){
@@ -91,8 +92,8 @@ function googleKey(location){
 }
 
 function fbKey(location){
-  var k = location.formatted_address.replace("/^\s*\d\w+/g");
-  var postalCode = location.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
+  var k = location.location.street.replace("/^\s*\d\w+/g");
+  var postalCode = location.location.zip.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
   if(postalCode != 0){
     k += "_"+ postalCode;
   }
