@@ -17,7 +17,7 @@ export class SearchService {
     public search(locId, dirId){
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'x-woms-auth' : config.authToken
+            'x-woms-auth' : 'f503586c-f9fe-4988-979f-8a73946c358f'
         });
         let options = new RequestOptions({ headers: headers });
         return this.http.get('http://ss.swiq3.com/api/location/cleanLocation?loc_id='+locId+'&dir_id=' + dirId, options)

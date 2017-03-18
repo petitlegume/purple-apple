@@ -13,10 +13,11 @@ router.get('/', function(req, res, next) {
 
 router.post('/search', function(req, res) {
     var radius= 1000;
-    var store = new Store(req.body, radius);
+    //var store = new Store(req.body, radius);
+    var store = new Store(dataTemplate.data, radius);
     var promise = store.gatherCompetitors();
         promise.then(function(response){
-        store.competitors.gplacesResults = response[0].results;
+        store.competitors.gplacesResults = response[0];
         store.competitors.fsResults = response[1];
         store.competitors.fbResults = response[2];
         store.uniqueComp = store.merge();
