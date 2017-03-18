@@ -54,7 +54,7 @@ function merge(){
     tempKey = fbKey(this.competitors.fbResults[i]);
     flag = false;
     for (var j = i + 1; j< this.competitors.fbResults.length; j++){
-      if (fbKey(competitors.fbResults[j]) == tempKey){
+      if (fbKey(this.competitors.fbResults[j]) == tempKey){
         flag = true;
         break;
       }
