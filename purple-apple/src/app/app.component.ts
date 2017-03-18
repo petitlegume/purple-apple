@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MdIconRegistry, MdDialog} from '@angular/material';
 import { SearchService } from './services/search.service';
+import { DatabaseService } from './services/database.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SearchService]
+  providers: [SearchService, DatabaseService]
 })
 export class AppComponent {
 
@@ -153,7 +154,7 @@ export class AppComponent {
     }
   };
 
-  constructor(public dialog: MdDialog, private searchService: SearchService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+  constructor(public dialog: MdDialog, private searchService: SearchService, private databaseService: DatabaseService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'menu',
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/ic_menu_black_24px.svg'));
@@ -167,8 +168,8 @@ export class AppComponent {
     } );
   }
 
-  public testDB(yo){
-    this.searchService.testDB(yo).subscribe(
+  public updateDB(data){
+    this.databaseService.testDB(data).subscribe(
       test => console.log("Whatever"));
   }
 
