@@ -19,7 +19,6 @@ function Store(params, radius) {
     var latlon = params.loc_latlong.split(",");
     this.latlon = [latlon[1],latlon[0]];
     this.categories = mostAllegibleCategories;
-    this.categoryId = mostAllegibleCategories[0].id;
     this.radius = radius;
 
     this.competitors = {
@@ -82,9 +81,10 @@ function findMostAllegibleCategories(allegibleKeywords, categories) {
     var mostAllegible = [];
 
     for ( var i = 0; i < categories.length; i++ ) {
-        var category = categories[i].name.toLowerCase();
+        var category = categories[i];
+        categories[i].name = categories[i].name.toLowerCase();
         for (var j = 0; j < allegibleKeywords.length; j++) {
-            if ( category.includes( allegibleKeywords[j].keyword ) & !(allegibleKeywords[j].occurence > 2) ) {
+            if ( category.name.includes( allegibleKeywords[j].keyword ) & !(allegibleKeywords[j].occurence > 2) ) {
                 mostAllegible.push( category );
                 break;
             }
@@ -104,9 +104,10 @@ function gatherCompetitors() {
             lon: this.latlon[1]
         },
         radius: this.radius,
-        category: this.categories[0],
-        categoryId: this.categoryId
+        category: this.categories[1].name,
+        categoryId: this.categories[1].id
     };
+    console.log(parameters);
 
 
     var promises = [];
