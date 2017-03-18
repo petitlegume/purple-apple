@@ -9,6 +9,7 @@ import 'hammerjs';
 import {AppComponent} from './app.component';
 import {ConfirmDialog} from "./dialog.component";
 import {DialogsService} from "./services/dialog.service";
+import {config} from "../config";
 
 @NgModule({
   exports: [
@@ -24,7 +25,7 @@ import {DialogsService} from "./services/dialog.service";
     HttpModule,
     MaterialModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBH0oLSovN7BAK6nN3VjSMVGcjCODyPRqU'
+      apiKey: config.gmapToken
     })
   ],
   providers: [
