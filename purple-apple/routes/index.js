@@ -17,6 +17,7 @@ router.get('/search', function(req, res) {
     var promise = store.gatherCompetitors();
         promise.then(function(response){
         store.competitors.gplacesResults = response.results;
+        // store.competitors.facebook = response.data;
         res.send(JSON.stringify(store.buildProxy()));
     });
 

@@ -17,6 +17,9 @@
   <sebm-google-map class="full-height full-width absolutePos atTop underneath" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
     <sebm-google-map-marker *ngFor="let result of competitors.gplacesResults" (markerClick)="openStatistics()" [latitude]="result.geometry.location.lat" [longitude]="result.geometry.location.lng"></sebm-google-map-marker>
   </sebm-google-map>
+  <!--<sebm-google-map class="full-height full-width absolutePos atTop underneath" [latitude]="lat" [longitude]="lng" [zoom]="zoom">-->
+    <!--<sebm-google-map-marker *ngFor="let result of competitors.facebook" (markerClick)="openStatistics()" [latitude]="result.location.latitude" [longitude]="result.location.longitude"></sebm-google-map-marker>-->
+  <!--</sebm-google-map>-->
 
 </md-sidenav-container>
 

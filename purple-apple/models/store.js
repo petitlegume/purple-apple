@@ -98,6 +98,15 @@ function gatherCompetitors() {
         category: this.category
     }
 
+    // parameters = {
+    //     loc:{
+    //         lat: 45.525476,
+    //         lon: -73.574596
+    //     },
+    //     radius: 1000,
+    //     category: 'burger'
+    // }
+
     var competitors = {};
 
     return new Promise(function (fulfill, reject){
@@ -111,13 +120,20 @@ function gatherCompetitors() {
         }, reject);
     });
 
+    // return new Promise(function (fulfill, reject){
+    //     facebook.search(parameters).done(function (res) {
+    //         try {
+    //             fulfill(res);
+    //         }
+    //         catch(ex){
+    //             reject(ex);
+    //         }
+    //     }, reject);
+    // });
+
 
 
 /*
-    facebook.search(parameters).done(function(data){
-        console.log(data);
-        this.competitors.fbResults = data;
-    });
 
     fourSquare.search(parameters).done(function(data){
         var venues = data.response.venues;
