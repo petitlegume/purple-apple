@@ -8,10 +8,14 @@ var dataTemplate = require('../dataTemplates/aw.js');
 
 var radius= 200;
 var store = new Store(dataTemplate.data, radius);
-
+store.gatherCompetitors();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
+});
+
+router.get('/search', function(req, res) {
+    res.send('20');
 });
 
 /* Testing Facebook api */
