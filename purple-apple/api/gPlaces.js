@@ -14,7 +14,7 @@ function search(params) {
     var parameters = {
         location: [params.loc.lat, params.loc.lon],
         radius: params.radius,
-        keyword: params.keyword
+        keyword: params.category
     };
 
     return new Promise(function (fulfill, reject){
