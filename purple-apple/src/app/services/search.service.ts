@@ -8,7 +8,7 @@ export class SearchService {
         private http: Http
     ) {}
 
-    search() {
+    public search() {
         return this.http.get(`http://localhost:3000/api/search`)
             .map((res:Response) => res.json());
     }

@@ -63,10 +63,10 @@ module.exports = function() {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(628);
+var content = __webpack_require__(629);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(680)(content, {});
+var update = __webpack_require__(681)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -84,7 +84,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 628:
+/***/ 629:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(248)();
@@ -99,7 +99,7 @@ exports.push([module.i, "\r\nhtml, body {\r\n  height:100%;\r\n  margin:0px;\r\n
 
 /***/ }),
 
-/***/ 680:
+/***/ 681:
 /***/ (function(module, exports) {
 
 /*
@@ -352,7 +352,7 @@ function updateLink(linkElement, obj) {
 
 /***/ }),
 
-/***/ 684:
+/***/ 685:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(425);
@@ -360,5 +360,5 @@ module.exports = __webpack_require__(425);
 
 /***/ })
 
-},[684]);
+},[685]);
 //# sourceMappingURL=styles.bundle.js.map
