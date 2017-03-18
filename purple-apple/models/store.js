@@ -207,7 +207,7 @@ function gatherCompetitors() {
         fourSquare.search(parameters).done(function(data){
             try {
                 // competitors.fsResults = data.response.venues;
-                fulfill(data.response.venues);
+                fulfill(data);
             }
             catch(ex){
                 reject(ex);

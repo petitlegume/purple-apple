@@ -19,9 +19,12 @@ function search(params){
     };
 
     return new Promise(function (fulfill, reject){
-        foursquare.getVenues(parameters,function(error,response){
+        foursquare.getVenues(parameters,function(error,res){
             if (error) reject(error);
-            else fulfill(response);
+            else {
+                console.log(res);
+                fulfill(res.response.venues);
+            }
         });
     });
 
