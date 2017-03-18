@@ -15,9 +15,7 @@ export class AppComponent {
   lat: number = 0;
   lng: number = 0;
   public test: Array<string> = ["salut1", "salut2"];
-  public competitors = {
-    gplacesResults: []
-  };
+  public competitors = {};
   private exParams = {
     "loc_brandname": "A&W",
     "loc_branchid": "5545",
@@ -163,7 +161,7 @@ export class AppComponent {
 
   public search(){
     this.searchService.search(this.exParams).subscribe(data => {
-      this.competitors = data;
+      this.competitors = data.competitors;
       this.lat = parseFloat(data.latlon[0]);
       this.lng = parseFloat(data.latlon[1]);
     } );
