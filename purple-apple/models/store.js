@@ -21,7 +21,8 @@ function Store(params, radius) {
 
     this.competitors = {
         gplacesResults:{},
-        fbResults: {}
+        fbResults: {},
+        fsResults: {}
     };
 
     this.gatherCompetitors = gatherCompetitors;
@@ -78,26 +79,30 @@ function findMostAllegible(allegibles) {
 
 function gatherCompetitors() {
 
-    gplaces.search({
+    parameters = {
         loc:{
             lat: this.latlon[1],
             lon: this.latlon[0]
         },
         radius: this.radius,
         category: this.category
-    }).done(function (res) {
+    }
+
+
+    gplaces.search(parameters).done(function (res) {
         this.competitors.gplacesResults = res.results;
     });
 
-    facebook.search(this.raw).done(function(data){
-        competitors.facebook = data;
+    facebook.search(parameters).done(function(data){
+        console.log(data);
+        this.competitors.fbResults = data;
     });
 
-    fourSquare.search(this.raw).done(function(data){
+    fourSquare.search(parameters).done(function(data){
         var venues = data.response.venues;
-        competitors.fourSquare = venues;
+        this.competitors.fsResults = venues;
     });
 
-    return competitors;
+    return this.competitors;
 
 }

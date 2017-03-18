@@ -8,8 +8,8 @@ module.exports = {
 function search(params){
 
     var fqparams = {
-        "ll": [params.loc.lat, params.loc.lon].toString(),
-        "intent": params.intent,
+        "ll": [params.loc.lat, params.loc.lon],
+        "intent": "browse",
         "radius": params.radius,
         "categoryId": params.category
     };
