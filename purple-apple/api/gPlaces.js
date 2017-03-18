@@ -10,7 +10,6 @@ module.exports = {
 
 function search(params) {
 
-
     var parameters = {
         location: [params.loc.lat, params.loc.lon],
         radius: params.radius,
