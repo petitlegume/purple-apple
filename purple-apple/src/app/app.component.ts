@@ -168,9 +168,9 @@ export class AppComponent {
     } );
   }
 
-  public openStatistics(){
+  public openStatistics(rating){
     this.dialogsService
-        .confirm('Confirm Dialog', 'Are you sure you want to do this?')
+        .confirm(rating)
         //.subscribe(res => this.result = res);
   }
 
