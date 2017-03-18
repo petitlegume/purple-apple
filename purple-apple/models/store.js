@@ -11,17 +11,15 @@ module.exports = Store;
 function Store(params, radius) {
 
     var keywords = params.loc_keywords.split(", ");
-    var allegibles = findAllegibles(keywords, params.categories);
-    var mostAllegible = findMostAllegible(allegibles);
+    var allegibleKeywords = findAllegibleKeywords(keywords, params.categories);
+    var mostAllegibleCategories = findMostAllegibleCategories(allegibleKeywords, params.categories);
 
     this.raw = params;
     this.name = params.loc_name;
     var latlon = params.loc_latlong.split(",");
     this.latlon = [latlon[1],latlon[0]];
-    console.log('\n\n\n\n');
-    console.log(mostAllegible);
-    this.category = mostAllegible.name;
-    this.categoryId = mostAllegible.id; // fix hardcoded, (mostAllegible needs to give us category name and id)
+    this.categories = mostAllegibleCategories;
+    this.categoryId = mostAllegibleCategories[0].id;
     this.radius = radius;
 
     this.competitors = {
@@ -34,24 +32,26 @@ function Store(params, radius) {
     this.buildProxy = buildProxy;
 }
 
-function findAllegibles(keywords, categories) {
+function findAllegibleKeywords(keywords, categories) {
     var correspondances = [];
 
     for (var j = 0; j < categories.length; j++) {
 
-        var category = categories[j];
+        var category = categories[j].name.toLowerCase();
 
         for (var i = 0; i < keywords.length; i++) {
 
-            if (category.name.match(keywords[i]) || keywords[i].match(category.name)) {
+            var keyword = keywords[i].toLowerCase();
 
-                var correspondance = findInCorrespondances(category, correspondances);
+            if ( category.match(keyword) || keyword.match(category)) {
+
+                var correspondance = findInCorrespondances(keyword, correspondances);
 
                 if (correspondance) {
                     correspondance.occurence += 1;
                 }
                 else correspondances.push({
-                    category: category,
+                    keyword: keyword.toLowerCase(),
                     occurence: 1
                 })
             }
@@ -70,27 +70,33 @@ function buildProxy(){
     }
 }
 
-function findInCorrespondances(category, correspondances) {
+function findInCorrespondances(name, correspondances) {
     for (var i = 0; i < correspondances.length; i++) {
-        if (correspondances[i].category.name == category.name) return correspondances[i];
+        if (correspondances[i].keyword == name) return correspondances[i];
     }
     return null;
 }
 
-function findMostAllegible(allegibles) {
+function findMostAllegibleCategories(allegibleKeywords, categories) {
 
-    var mostAllegibleSofar = allegibles[0];
+    var mostAllegible = [];
 
-    for (var i = 1; i < allegibles.length; i++) {
-        var allegible = allegibles[i];
-        if (!mostAllegibleSofar) mostAllegibleSofar = allegible;
-        else if (mostAllegibleSofar.occurence > allegible.occurence) mostAllegibleSofar = allegible;
+    for ( var i = 0; i < categories.length; i++ ) {
+        var category = categories[i].name.toLowerCase();
+        for (var j = 0; j < allegibleKeywords.length; j++) {
+            if ( category.includes( allegibleKeywords[j].keyword ) & !(allegibleKeywords[j].occurence > 2) ) {
+                mostAllegible.push( category );
+                break;
+            }
+        }
     }
 
-    return mostAllegibleSofar.category;
+    return mostAllegible;
 }
 
+
 function gatherCompetitors() {
+
 
     parameters = {
         loc:{
@@ -98,10 +104,9 @@ function gatherCompetitors() {
             lon: this.latlon[1]
         },
         radius: this.radius,
-        category: this.category,
+        category: this.categories[0],
         categoryId: this.categoryId
     };
-    console.log(parameters);
 
 
     var promises = [];
@@ -142,4 +147,6 @@ function gatherCompetitors() {
     }));
 
     return Promise.all(promises);
+
 }
+
