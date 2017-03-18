@@ -101,7 +101,7 @@ function gatherCompetitors() {
         category: this.category,
         categoryId: this.categoryId
     };
-    console.log(parameters)
+    console.log(parameters);
 
 
     var promises = [];
@@ -118,26 +118,6 @@ function gatherCompetitors() {
         }, reject);
     }));
 
-
-    // return new Promise(function (fulfill, reject){
-    //     facebook.search(parameters).done(function (res) {
-    //         try {
-    //             fulfill(res);
-    //         }
-    //         catch(ex){
-    //             reject(ex);
-    //         }
-    //     }, reject);
-    // });
-
-
-
-
-    // facebook.search(parameters).done(function(data){
-    //     console.log(data);
-    //     this.competitors.fbResults = data;
-    // });
-
     promises.push( new Promise(function (fulfill, reject){
         fourSquare.search(parameters).done(function(data){
             try {
@@ -150,7 +130,16 @@ function gatherCompetitors() {
         }, reject);
     }));
 
+    promises.push( new Promise(function (fulfill, reject){
+        facebook.search(parameters).done(function (res) {
+            try {
+                fulfill(res);
+            }
+            catch(ex){
+                reject(ex);
+            }
+        }, reject);
+    }));
 
     return Promise.all(promises);
-
 }
