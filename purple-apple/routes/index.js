@@ -12,19 +12,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/search', function(req, res) {
-    var radius= 200;
+    var radius= 1000;
     var store = new Store(dataTemplate.data, radius);
     var promise = store.gatherCompetitors();
         promise.then(function(response){
-        store.competitors.gplacesResults = response.results;
-        // store.competitors.facebook = response.data;
+        store.competitors.gplacesResults = response[0].results;
+        store.competitors.fsResults = response[1];
+        store.competitors.fbResults = response[2];
+        console.log(store.competitors);
         res.send(JSON.stringify(store.buildProxy()));
     });
 
 });
 
 /* Testing Facebook api */
-router.get('/api/facebook', function(req, res, next){
+router.get('/facebook', function(req, res, next){
 
     params = {
         loc: {
@@ -41,7 +43,7 @@ router.get('/api/facebook', function(req, res, next){
 });
 
 /* Testing fourSquare api */
-router.get('/api/fourSquare', function(req, res, next){
+router.get('/fourSquare', function(req, res, next){
 
     params = {
         loc: {
@@ -60,4 +62,3 @@ router.get('/api/fourSquare', function(req, res, next){
 
 
 module.exports = router;
-

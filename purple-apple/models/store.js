@@ -19,6 +19,7 @@ function Store(params, radius) {
     var latlon = params.loc_latlong.split(",");
     this.latlon = [latlon[1],latlon[0]];
     this.categories = mostAllegibleCategories;
+    this.categoryId = mostAllegibleCategories[0].id;
     this.radius = radius;
 
     this.competitors = {
@@ -40,7 +41,7 @@ function findAllegibleKeywords(keywords, categories) {
 
         for (var i = 0; i < keywords.length; i++) {
 
-            var keyword = keywords[i].toLowerCase()
+            var keyword = keywords[i].toLowerCase();
 
             if ( category.match(keyword) || keyword.match(category)) {
 
@@ -103,51 +104,49 @@ function gatherCompetitors() {
             lon: this.latlon[1]
         },
         radius: this.radius,
-        category: this.categories[0]
-    }
+        category: this.categories[0],
+        categoryId: this.categoryId
+    };
 
-    // parameters = {
-    //     loc:{
-    //         lat: 45.525476,
-    //         lon: -73.574596
-    //     },
-    //     radius: 1000,
-    //     category: 'burger'
-    // }
 
-    var competitors = {};
+    var promises = [];
 
-    return new Promise(function (fulfill, reject){
+    promises.push( new Promise(function (fulfill, reject){
         gplaces.search(parameters).done(function (res) {
-            try {            //competitors.gplacesResults = res.results;
+            try {
+                // competitors.gplacesResults = res;
+                fulfill(res)
+            }
+            catch(ex){
+                reject(ex);
+            }
+        }, reject);
+    }));
+
+    promises.push( new Promise(function (fulfill, reject){
+        fourSquare.search(parameters).done(function(data){
+            try {
+                // competitors.fsResults = data.response.venues;
+                fulfill(data.response.venues);
+            }
+            catch(ex){
+                reject(ex);
+            }
+        }, reject);
+    }));
+
+    promises.push( new Promise(function (fulfill, reject){
+        facebook.search(parameters).done(function (res) {
+            try {
                 fulfill(res);
             }
             catch(ex){
                 reject(ex);
             }
         }, reject);
-    });
+    }));
 
-    // return new Promise(function (fulfill, reject){
-    //     facebook.search(parameters).done(function (res) {
-    //         try {
-    //             fulfill(res);
-    //         }
-    //         catch(ex){
-    //             reject(ex);
-    //         }
-    //     }, reject);
-    // });
-
-
-
-/*
-
-    fourSquare.search(parameters).done(function(data){
-        var venues = data.response.venues;
-        this.competitors.fsResults = venues;
-    });
-*/
+    return Promise.all(promises);
 
 }
 
