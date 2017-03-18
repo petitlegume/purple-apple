@@ -7,7 +7,11 @@ const options = {
     }
 };
 
-function getFacebookInfo(driver, id) {
+function getFacebookInfo(id) {
+    const driver = webdriverio
+        .remote(options)
+        .init();
+
     return driver
         .url(`https://www.facebook.com/${id}`)
         .getHTML('html').then((html) => {
@@ -31,15 +35,9 @@ function getFacebookInfo(driver, id) {
                 businessInfo[key] = $(`._4bl7 img[src*="${value}"]`).closest('._ikh').find('._4bl9').text();
             });
 
+            driver.end();
             return businessInfo;
         });
 }
 
-const driver = webdriverio
-    .remote(options)
-    .init();
-
-getFacebookInfo(driver, "58423889008").then((businessInfo) => {
-    console.log(businessInfo);
-    driver.end();
-});
+module.exports.getFacebookInfo = getFacebookInfo;
