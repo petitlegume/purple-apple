@@ -23,6 +23,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 if (app.get('env') === 'development')
 {
     app.listen(3000, function () {
@@ -34,5 +35,6 @@ else{
         console.log('Example app listening on port 8080!');
     });
 }
+
 module.exports = app;
 
