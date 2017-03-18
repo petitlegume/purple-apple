@@ -5,6 +5,7 @@
 var gplaces = require('../api/gPlaces.js');
 var facebook = require('../api/facebook.js');
 var fourSquare = require('../api/fourSquare.js');
+var Promis = require("Promise");
 module.exports = Store;
 
 function Store(params, radius) {
@@ -15,7 +16,8 @@ function Store(params, radius) {
 
     this.raw = params;
     this.name = params.loc_name;
-    this.latlon = params.loc_latlong.split(",");
+    var latlon = params.loc_latlong.split(",");
+    this.latlon = [latlon[1],latlon[0]];
     this.category = mostAllegible;
     this.radius = radius;
 
@@ -26,7 +28,7 @@ function Store(params, radius) {
     };
 
     this.gatherCompetitors = gatherCompetitors;
-
+    this.buildProxy = buildProxy;
 }
 
 function findAllegibles(keywords, categories) {
@@ -57,6 +59,14 @@ function findAllegibles(keywords, categories) {
 
 }
 
+function buildProxy(){
+    return {
+        name : this.name,
+        latlon: this.latlon,
+        competitors: this.competitors
+    }
+}
+
 function findInCorrespondances(name, correspondances) {
     for (var i = 0; i < correspondances.length; i++) {
         if (correspondances[i].name == name) return correspondances[i];
@@ -81,18 +91,29 @@ function gatherCompetitors() {
 
     parameters = {
         loc:{
-            lat: this.latlon[1],
-            lon: this.latlon[0]
+            lat: this.latlon[0],
+            lon: this.latlon[1]
         },
         radius: this.radius,
         category: this.category
     }
 
+    var competitors = {};
 
-    gplaces.search(parameters).done(function (res) {
-        this.competitors.gplacesResults = res.results;
+    return new Promise(function (fulfill, reject){
+        gplaces.search(parameters).done(function (res) {
+            try {            //competitors.gplacesResults = res.results;
+                fulfill(res);
+            }
+            catch(ex){
+                reject(ex);
+            }
+        }, reject);
     });
 
+
+
+/*
     facebook.search(parameters).done(function(data){
         console.log(data);
         this.competitors.fbResults = data;
@@ -102,7 +123,6 @@ function gatherCompetitors() {
         var venues = data.response.venues;
         this.competitors.fsResults = venues;
     });
-
-    return this.competitors;
+*/
 
 }

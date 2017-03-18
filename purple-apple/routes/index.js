@@ -14,8 +14,12 @@ router.get('/', function(req, res, next) {
 router.get('/search', function(req, res) {
     var radius= 200;
     var store = new Store(dataTemplate.data, radius);
-    store.gatherCompetitors();
-    res.send('20');
+    var promise = store.gatherCompetitors();
+        promise.then(function(response){
+        store.competitors.gplacesResults = response.results;
+        res.send(JSON.stringify(store.buildProxy()));
+    });
+
 });
 
 /* Testing Facebook api */
