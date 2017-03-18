@@ -37,10 +37,10 @@ function Store(params, radius) {
 function merge(){
 
   for (var i = 0; i < this.competitors.gplacesResults.length; i ++){
-    var tempKey = googleKey(competitors.gplacesResults[i]);
+    var tempKey = googleKey(this.competitors.gplacesResults[i]);
     var flag = false;
     for (var j = i + 1; j< this.competitors.gplacesResults.length; j++){
-      if (googleKey(competitors.gplacesResults[j]) == tempKey){
+      if (googleKey(this.competitors.gplacesResults[j]) == tempKey){
         flag = true;
         break;
       }
@@ -54,7 +54,7 @@ function merge(){
     tempKey = fbKey(this.competitors.fbResults[i]);
     flag = false;
     for (var j = i + 1; j< this.competitors.fbResults.length; j++){
-      if (fbKey(competitors.fbResults[j]) == tempKey){
+      if (fbKey(this.competitors.fbResults[j]) == tempKey){
         flag = true;
         break;
       }
