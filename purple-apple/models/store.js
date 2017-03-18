@@ -3,6 +3,7 @@
  */
 
 var gplaces = require('../api/gPlaces.js');
+var facebook = require('../api/facebook.js');
 module.exports = Store;
 
 function Store(params) {
@@ -78,6 +79,10 @@ function gatherCompetitors() {
 
     gplaces.search(params).done(function (res) {
         competitors.gplacesResults = res.results;
+    });
+
+    facebook.search(params).done(function(data){
+        competitors.facebook = data;
     });
 
     return competitors;
