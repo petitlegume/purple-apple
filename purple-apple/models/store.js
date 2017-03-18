@@ -38,19 +38,15 @@ function merge(){
 
   if(this.competitors.gplacesResults){
     for (var i = 0; i < this.competitors.gplacesResults.length; i ++){
-console.log(1, this.competitors.gplacesResults[i])
       var tempKey = googleKey(this.competitors.gplacesResults[i]);
       var flag = false;
 
-      console.log(2)
       for (var j = i + 1; j< this.competitors.gplacesResults.length; j++){
-        console.log(3)
         if (googleKey(this.competitors.gplacesResults[j]) == tempKey){
           flag = true;
           break;
         }
       }
-      console.log(4)
       if(flag){
         this.uniqueComp.push(this.competitors.gplacesResults[i]);
       }
@@ -199,7 +195,6 @@ function gatherCompetitors() {
         category: this.categories[1].name,
         categoryId: this.categories[1].id
     };
-    console.log(parameters);
 
 
     var promises = [];
