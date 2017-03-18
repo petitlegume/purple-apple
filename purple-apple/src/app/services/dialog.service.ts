@@ -8,13 +8,15 @@ export class DialogsService {
 
     constructor(private dialog: MdDialog) { }
 
-    public confirm(rating: number): Observable<boolean> {
+    public confirm(name: string, rating: number): Observable<boolean> {
 
         let dialogRef: MdDialogRef<ConfirmDialog>;
 
         dialogRef = this.dialog.open(ConfirmDialog);
-        dialogRef.componentInstance.title = "Ratings";
-        dialogRef.componentInstance.message = "Gplaces rating:" + rating;
+        dialogRef.componentInstance.title = name + " ratings";
+        dialogRef.componentInstance.gplacesRating = rating.toString();
+        dialogRef.componentInstance.yelpRating = (Math.floor(Math.random() * 5) + 1).toString();
+        dialogRef.componentInstance.fsRating = (Math.floor(Math.random() * 5) + 1).toString();
 
         return dialogRef.afterClosed();
     }
