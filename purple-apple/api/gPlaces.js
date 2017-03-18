@@ -22,15 +22,15 @@ function search(params) {
         keyword: params.category
     };
     var listings;
-    return nearBySearchAsync(parameters).then(_listings => {
+    return nearBySearchAsync(parameters).then(function(_listings) {
      //   console.log(response, "response");
         listings = _listings.results;
-        return Promise.map(listings, (loc, index) => {
-            return placeDetailsRequestAsync({reference: loc.reference}).then ((detail) => {
+        return Promise.map(listings, function(loc, index) {
+            return placeDetailsRequestAsync({reference: loc.reference}).then (function(detail) {
        //         console.log(response);
                 listings[index].details = detail.result;                        
             });
         })   
-    }).then(() => listings);
+    }).then(function() {listings});
 };
 
