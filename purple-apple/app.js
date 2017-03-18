@@ -27,68 +27,6 @@ app.get(['/', '/index.html', '/home', '/index'], function(req,res){
 	res.render('index', {});
 });
 
-app.get(['/connect'], function(req,res){
-	mongo.connect("mongodb://superuser:password@ds135680.mlab.com:35680/findr",function(err,db){
-    if(err){
-      console.log("Error opening db: ",err);
-      res.sendStatus(500);
-    }
-    else{
-      console.log("DB opened");
-      var collection = db.collection("locations");
-      // var storesObj = getStore();
-      // insert  with unique key for google, fb and 4square and drop duplicates
-
-      for (var i = 0; i < store.competitors.gplacesResults.length; i++){
-        var location = store.competitors.gplacesResults[i];
-        //key is civic number _ lat _ lng_ source
-        var k = location.vicinity.split(" ")[0] + "_" + Math.floor(location.geometry.location.lat) + "_" + Math.floor(location.geometry.location.lng) + "_" + "GooglePlaces";
-        location[key] = k
-        db.collection("location").insert(location,{upsert:true},function(err, result){
-          if(err){
-            console.log("Error inserting into database: ",err);
-            res.sendStatus(500);
-          }
-          else{
-            db.locations.ensureIndex({'key': k}, {unique : true, dropDups : true});
-          }
-        });
-      }
-
-      for (var i = 0; i < store.competitors.facebook.length; i++){
-        var location = store.competitors.facebook[i];
-        var k = location.street.split(" ")[0] + "_" + Math.floor(location.latitude) + "_"+ Math.floor(location.longitude) + "_" + "Facebook";
-        location[key] = k;
-        db.collection("location").insert(location,{upsert:true},function(err, result){
-          if(err){
-            console.log("Error inserting into database: ",err);
-            res.sendStatus(500);
-          }
-          else{
-            db.locations.ensureIndex({'key': k}, {unique : true, dropDups : true});
-          }
-        });
-      }
-
-      for (var i = 0; i < store.competitors.fourSquare.length; i++){
-        var location = store.competitors.fourSquare[i];
-        var k = location.location.address.split(" ")[0] + "_" + Math.floor(location.location.lat) + "_"+ Math.floor(location.location.lng) + "_" + "FourSquare";
-        location[key] = k;
-        db.collection("location").insert(location,{upsert:true},function(err, result){
-          if(err){
-            console.log("Error inserting into database: ",err);
-            res.sendStatus(500);
-          }
-          else{
-            db.locations.ensureIndex({'key': k}, {unique : true, dropDups : true});
-          }
-        });
-      }
-      db.close();
-    }
-  });
-});
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
