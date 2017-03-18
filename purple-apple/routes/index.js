@@ -16,7 +16,7 @@ router.post('/search', function(req, res) {
     var store = new Store(req.body, radius);
     var promise = store.gatherCompetitors();
         promise.then(function(response){
-        store.competitors.gplacesResults = response[0];
+        store.competitors.gplacesResults = response[0].results;
         store.competitors.fsResults = response[1];
         store.competitors.fbResults = response[2];
         console.log(store.competitors);

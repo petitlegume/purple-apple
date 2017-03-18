@@ -7,11 +7,15 @@ module.exports = {
 
 function search(params){
 
+    var categoryIds = [];
+    for (i in params.categories) {
+        categoryIds.push(params.categories[i].id)
+    }
     var parameters = {
         "ll": [params.loc.lat, params.loc.lon].toString(),
         "intent": "browse",
         "radius": params.radius,
-        "categoryId": [params.categoryId]
+        "categoryId": categoryIds
     };
 
     return new Promise(function (fulfill, reject){
