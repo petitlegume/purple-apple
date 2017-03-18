@@ -36,45 +36,54 @@ function Store(params, radius) {
 
 function merge(){
 
-  for (var i = 0; i < this.competitors.gplacesResults.length; i ++){
-    var tempKey = googleKey(this.competitors.gplacesResults[i]);
-    var flag = false;
-    for (var j = i + 1; j< this.competitors.gplacesResults.length; j++){
-      if (googleKey(this.competitors.gplacesResults[j]) == tempKey){
-        flag = true;
-        break;
+  if(this.competitors.gplacesResults){
+    for (var i = 0; i < this.competitors.gplacesResults.length; i ++){
+
+      var tempKey = googleKey(this.competitors.gplacesResults[i]);
+      var flag = false;
+
+      for (var j = i + 1; j< this.competitors.gplacesResults.length; j++){
+        if (googleKey(this.competitors.gplacesResults[j]) == tempKey){
+          flag = true;
+          break;
+        }
       }
-    }
-    if(flag){
-      uniqueComp.push(this.competitors.gplacesResults[i]);
+      if(flag){
+        uniqueComp.push(this.competitors.gplacesResults[i]);
+      }
     }
   }
 
-  for (var i = 0; i< this.competitors.fbResults.length; i++){
-    tempKey = fbKey(this.competitors.fbResults[i]);
-    flag = false;
-    for (var j = i + 1; j< this.competitors.fbResults.length; j++){
-      if (fbKey(this.competitors.fbResults[j]) == tempKey){
-        flag = true;
-        break;
+  
+  if(this.competitors.fbResults){
+    for (var i = 0; i< this.competitors.fbResults.length; i++){
+      tempKey = fbKey(this.competitors.fbResults[i]);
+      flag = false;
+      for (var j = i + 1; j< this.competitors.fbResults.length; j++){
+        if (fbKey(this.competitors.fbResults[j]) == tempKey){
+          flag = true;
+          break;
+        }
       }
-    }
-    if(flag){
-      uniqueComp.push(this.competitors.fbResults[i]);
+      if(flag){
+        uniqueComp.push(this.competitors.fbResults[i]);
+      }
     }
   }
-
-  for (var i = 0; i< this.competitors.fsResults.length; i++){
-    tempKey = fsKey(this.competitors.fsResults[i]);
-    flag = false;
-    for (var j = i + 1; j< this.competitors.fsResults.length; j++){
-      if (fsKey(this.competitors.fsResults[j]) == tempKey){
-        flag = true;
-        break;
+  
+  if(this.competitors.fsResults){
+    for (var i = 0; i< this.competitors.fsResults.length; i++){
+      tempKey = fsKey(this.competitors.fsResults[i]);
+      flag = false;
+      for (var j = i + 1; j< this.competitors.fsResults.length; j++){
+        if (fsKey(this.competitors.fsResults[j]) == tempKey){
+          flag = true;
+          break;
+        }
       }
-    }
-    if(flag){
-      uniqueComp.push(this.competitors.fsResults[i]);
+      if(flag){
+        uniqueComp.push(this.competitors.fsResults[i]);
+      }
     }
   }
   return uniqueComp;
