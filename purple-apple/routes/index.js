@@ -12,13 +12,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/search', function(req, res) {
-    var radius= 200;
+    var radius= 1000;
     var store = new Store(dataTemplate.data, radius);
     var promise = store.gatherCompetitors();
         promise.then(function(response){
-        store.competitors.gplacesResults = response.results;
-        // store.competitors.facebook = response.data;
-        res.send(JSON.stringify(store.buildProxy()));
+        store.competitors.gplacesResults = response[0].results;
+        store.competitors.fsResults = response[1];
+            res.send(JSON.stringify(store.buildProxy()));
     });
 
 });
