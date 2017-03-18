@@ -38,9 +38,9 @@ export class AppComponent {
 
   }
 
-  public openStatistics(rating){
+  public openStatistics(name: string, rating: number){
     this.dialogsService
-        .confirm(rating)
+        .confirm(name, rating)
         //.subscribe(res => this.result = res);
   }
 
