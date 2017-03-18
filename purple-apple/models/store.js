@@ -27,7 +27,7 @@ function Store(params, radius) {
         fsResults: {}
     };
 
-    this.uniqueComp = {};
+    this.uniqueComp = [];
 
     this.gatherCompetitors = gatherCompetitors;
     this.buildProxy = buildProxy;
@@ -38,23 +38,26 @@ function merge(){
 
   if(this.competitors.gplacesResults){
     for (var i = 0; i < this.competitors.gplacesResults.length; i ++){
-
+console.log(1, this.competitors.gplacesResults[i])
       var tempKey = googleKey(this.competitors.gplacesResults[i]);
       var flag = false;
 
+      console.log(2)
       for (var j = i + 1; j< this.competitors.gplacesResults.length; j++){
+        console.log(3)
         if (googleKey(this.competitors.gplacesResults[j]) == tempKey){
           flag = true;
           break;
         }
       }
+      console.log(4)
       if(flag){
-        uniqueComp.push(this.competitors.gplacesResults[i]);
+        this.uniqueComp.push(this.competitors.gplacesResults[i]);
       }
     }
   }
 
-  
+
   if(this.competitors.fbResults){
     for (var i = 0; i< this.competitors.fbResults.length; i++){
       tempKey = fbKey(this.competitors.fbResults[i]);
@@ -66,11 +69,11 @@ function merge(){
         }
       }
       if(flag){
-        uniqueComp.push(this.competitors.fbResults[i]);
+        this.uniqueComp.push(this.competitors.fbResults[i]);
       }
     }
   }
-  
+
   if(this.competitors.fsResults){
     for (var i = 0; i< this.competitors.fsResults.length; i++){
       tempKey = fsKey(this.competitors.fsResults[i]);
@@ -82,19 +85,19 @@ function merge(){
         }
       }
       if(flag){
-        uniqueComp.push(this.competitors.fsResults[i]);
+        this.uniqueComp.push(this.competitors.fsResults[i]);
       }
     }
   }
-  return uniqueComp;
+  return this.uniqueComp;
 }
 
 function googleKey(location){
   var k = location.details.formatted_address.replace("/^\s*\d\w+/g") + "_" +
                       location.details.formatted_phone_number.replace("/\D/g",'') + "_";
-  var postalCode = location.details.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
-  if(postalCode != 0){
-    k += "_"+ postalCode;
+  var postalCode = location.details.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b");
+  if(postalCode){
+    k += "_"+ postalCode[0];
   }
   k += "_GooglePlaces";
   return k;
@@ -102,9 +105,9 @@ function googleKey(location){
 
 function fbKey(location){
   var k = location.location.street.replace("/^\s*\d\w+/g");
-  var postalCode = location.location.zip.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
-  if(postalCode != 0){
-    k += "_"+ postalCode;
+  var postalCode = location.location.zip.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b");
+  if(postalCode){
+    k += "_"+ postalCode[0];
   }
   k += "_Facebook";
   return k;
@@ -113,9 +116,9 @@ function fbKey(location){
 function fsKey(location){
   var k = location.location.address.replace("/^\s*\d\w+/g")+
           location.contact.phone.replace(/\D/g,'') + "_";
-  var postalCode = location.location.postalCode.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
-  if(postalCode != 0){
-    k += "_"+ postalCode;
+  var postalCode = location.location.postalCode.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b");
+  if(postalCode){
+    k += "_"+ postalCode[0];
   }
   k += "_Facebook";
   return k;
