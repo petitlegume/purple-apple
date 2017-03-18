@@ -84,6 +84,9 @@
 .left-buffer-sm {
   margin-left: 20px; }
 
+.left-buffer-xl {
+  margin-left: 50px; }
+
 .side-padding-xs {
   padding-left: 10px;
   padding-right: 10px; }
