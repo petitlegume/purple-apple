@@ -90,9 +90,9 @@ function merge(){
 }
 
 function googleKey(location){
-  var k = location.formatted_address.replace("/^\s*\d\w+/g") + "_" +
-                      location.formatted_phone_number.replace("/\D/g",'') + "_";
-  var postalCode = location.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
+  var k = location.details.formatted_address.replace("/^\s*\d\w+/g") + "_" +
+                      location.details.formatted_phone_number.replace("/\D/g",'') + "_";
+  var postalCode = location.details.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
   if(postalCode != 0){
     k += "_"+ postalCode;
   }
