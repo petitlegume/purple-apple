@@ -87,7 +87,6 @@ function gatherCompetitors() {
         category: this.category
     }).done(function (res) {
         this.competitors.gplacesResults = res.results;
-        console.log("salut");
     });
 
     facebook.search(this.raw).done(function(data){
