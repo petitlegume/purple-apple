@@ -981,7 +981,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
  */
 // import 'intl';  // Run `npm install --save intl`.
-//# sourceMappingURL=C:/myGITs/purple-apple/purple-apple/src/polyfills.js.map
+//# sourceMappingURL=/Users/JohnWu/Documents/Projects/purple-apple/purple-apple/src/polyfills.js.map
 
 /***/ }),
 

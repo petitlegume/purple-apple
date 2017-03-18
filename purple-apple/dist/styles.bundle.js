@@ -92,7 +92,7 @@ exports = module.exports = __webpack_require__(248)();
 
 
 // module
-exports.push([module.i, "\r\nhtml, body {\r\n  height:100%;\r\n  margin:0px;\r\n}\r\n", ""]);
+exports.push([module.i, "\nhtml, body {\n  height:100%;\n  margin:0px;\n}\n", ""]);
 
 // exports
 
