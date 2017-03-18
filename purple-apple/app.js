@@ -22,19 +22,13 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname,'dist/index.html'));
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', index);
-app.use('/users', users);
-app.use('/api/facebook', facebook);
-
 
 app.get(['/', '/index.html', '/home', '/index'], function(req,res){
 	res.render('index', {});
 });
 
 app.get(['/connect'], function(req,res){
-	mongo.connect("http://localhost:27017/purpleDB",function(err,db){
+	mongo.connect("mongodb://superuser:password@ds135680.mlab.com:35680/findr",function(err,db){
     if(err){
       console.log("Error opening db: ",err);
       res.sendStatus(500);
