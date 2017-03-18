@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MdIconRegistry, MdDialog} from '@angular/material';
 import { SearchService } from './services/search.service';
+import {DialogsService} from "./services/dialog.service";
 
 @Component({
   selector: 'app-root',
@@ -153,7 +154,7 @@ export class AppComponent {
     }
   };
 
-  constructor(public dialog: MdDialog, private searchService: SearchService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private dialogsService: DialogsService, private searchService: SearchService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'menu',
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/ic_menu_black_24px.svg'));
@@ -168,10 +169,11 @@ export class AppComponent {
   }
 
   public openStatistics(){
-    this.dialog.open(AppComponent);
+    this.dialogsService
+        .confirm('Confirm Dialog', 'Are you sure you want to do this?')
+        //.subscribe(res => this.result = res);
   }
 
 
 }
-
 
