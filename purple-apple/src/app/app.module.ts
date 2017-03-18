@@ -6,11 +6,17 @@ import { MaterialModule } from '@angular/material';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import 'hammerjs';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {ConfirmDialog} from "./dialog.component";
+import {DialogsService} from "./services/dialog.service";
 
 @NgModule({
+  exports: [
+    ConfirmDialog,
+  ],
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmDialog
   ],
   imports: [
     BrowserModule,
@@ -21,7 +27,12 @@ import { AppComponent } from './app.component';
       apiKey: 'AIzaSyBH0oLSovN7BAK6nN3VjSMVGcjCODyPRqU'
     })
   ],
-  providers: [],
+  providers: [
+    DialogsService,
+  ],
+  entryComponents: [
+    ConfirmDialog,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
