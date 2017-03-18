@@ -2,21 +2,34 @@
  * Created by JohnWu on 2017-03-17.
  */
 var request = require('request');
+var Promise = require('promise');
 
 module.exports = {
     search: search
 }
+    
+function search(params) {
 
-function search() {
-    var token = '641741966019779|tRYxL3sSUqUDa94vj6k8NwyDFJA';
+    var parameters = {
+        location: [params.loc.lat, params.loc.lon],
+        radius: params.radius,
+        keyword: params.keyword
+    };
 
-    request.get("https://graph.facebook.com/search?q=ritual&type=place&center=37.76,-122.427&distance=1000&access_token=" + token ,function(error,response,body){
-        if(error){
-            return error;
-        }else{
-            return response;
-        }
+    var clientId = '641741966019779';
+    var clientSecret = '14d89dc6658614ffd23cb6ca314581df';
+    var url = "https://graph.facebook.com/search?fields=id,name,location,overall_rating&q=" +
+        parameters.keyword + "&type=place&center=" + parameters.location[0] + ",%20" + parameters.location[1] +
+        "&distance=" + parameters.radius + "&access_token=" + clientId + "|" + clientSecret;
+
+
+    return new Promise(function (fulfill, reject){
+        request.get(url,function(error,response){
+            if (error) reject(error);
+            else fulfill(JSON.parse(response.body));
+        });
     });
+
 }
 
 
