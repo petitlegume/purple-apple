@@ -25,19 +25,4 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  public address : Object;
-
-
-  lat: number = 51.678418;
-  lng: number = 7.809007;
-
-  getAddress(place:Object) {
-    this.address = place['formatted_address'];
-    var location = place['geometry']['location'];
-    this.lat =  location.lat();
-    this.lng = location.lng();
-    console.log("Address Object", place);
-  }
-
-
 }
