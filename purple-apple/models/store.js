@@ -27,8 +27,88 @@ function Store(params, radius) {
         fsResults: {}
     };
 
+    this.uniqueComp = {};
+
     this.gatherCompetitors = gatherCompetitors;
     this.buildProxy = buildProxy;
+}
+
+function merge(){
+
+  for (var i = 0; i < this.competitors.gplacesResults.length; i ++){
+    var tempKey = googleKey(competitors.gplacesResults[i]);
+    var flag = false;
+    for (var j = i + 1; j< this.competitors.gplacesResults.length; j++){
+      if (googleKey(competitors.gplacesResults[j]) == tempKey){
+        flag = true;
+        break;
+      }
+    }
+    if(flag){
+      uniqueComp.push(this.competitors.gplacesResults[i]);
+    }
+  }
+
+  for (var i = 0; i< this.competitors.fbResults.length; i++){
+    tempKey = fbKey(this.competitors.fbResults[i]);
+    flag = false;
+    for (var j = i + 1; j< this.competitors.fbResults.length; j++){
+      if (fbKey(competitors.fbResults[j]) == tempKey){
+        flag = true;
+        break;
+      }
+    }
+    if(flag){
+      uniqueComp.push(this.competitors.fbResults[i]);
+    }
+  }
+
+  for (var i = 0; i< this.competitors.fsResults.length; i++){
+    tempKey = fsKey(this.competitors.fsResults[i]);
+    flag = false;
+    for (var j = i + 1; j< this.competitors.fsResults.length; j++){
+      if (fsKey(this.competitors.fsResults[j]) == tempKey){
+        flag = true;
+        break;
+      }
+    }
+    if(flag){
+      uniqueComp.push(this.competitors.fsResults[i]);
+    }
+  }
+  return uniqueComp;
+}
+
+function googleKey(location){
+  var k = location.formatted_address.replace("/^\s*\d\w+/g") + "_" +
+                      location.formatted_phone_number.replace("/\D/g",'') + "_";
+  var postalCode = location.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
+  if(postalCode != 0){
+    k += "_"+ postalCode;
+  }
+  k += "_GooglePlaces";
+  return k;
+}
+
+function fbKey(location){
+  var k = location.formatted_address.replace("/^\s*\d\w+/g");
+  var postalCode = location.formatted_address.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
+  if(postalCode != 0){
+    k += "_"+ postalCode;
+  }
+  k += "_Facebook";
+  return k;
+}
+
+function fsKey(location){
+  var k = location.location.address.replace("/^\s*\d\w+/g")+
+          location.contact.phone.replace(/\D/g,'') + "_";
+  var postalCode = location.location.postalCode.match("\b([A-Z]\d[A-Z]\s*\d[A-Z]\d|\d{5}(\-\d{4})?)\b")[0];
+  if(postalCode != 0){
+    k += "_"+ postalCode;
+  }
+  k += "_Facebook";
+  return k;
 }
 
 function findAllegibleKeywords(keywords, categories) {
@@ -96,8 +176,6 @@ function findMostAllegibleCategories(allegibleKeywords, categories) {
 
 
 function gatherCompetitors() {
-
-
     parameters = {
         loc:{
             lat: this.latlon[0],
@@ -149,6 +227,4 @@ function gatherCompetitors() {
     }));
 
     return Promise.all(promises);
-
 }
-

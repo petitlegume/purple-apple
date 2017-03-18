@@ -19,6 +19,7 @@ router.post('/search', function(req, res) {
         store.competitors.gplacesResults = response[0].results;
         store.competitors.fsResults = response[1];
         store.competitors.fbResults = response[2];
+        store.uniqueComp = store.merge();
         console.log(store.competitors);
         res.send(JSON.stringify(store.buildProxy()));
     });
