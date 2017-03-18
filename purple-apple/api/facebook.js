@@ -24,7 +24,7 @@ function search(params) {
 
 
     return new Promise(function (fulfill, reject){
-        request.get(url,function(error,response,body){
+        request.get(url,function(error,response){
             if (error) reject(error);
             else fulfill(JSON.parse(response.body));
         });
