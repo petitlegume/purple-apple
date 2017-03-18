@@ -6,19 +6,18 @@ var gplaces = require('../api/gPlaces.js');
 var facebook = require('../api/facebook.js');
 module.exports = Store;
 
-function Store(params) {
+function Store(params, radius) {
 
+    this.params = params;
     var keywords = params.loc_keywords.split(", ");
     var allegibles = findAllegibles(keywords, params.categories);
     var mostAllegible = findMostAllegible(allegibles);
 
 
     this.name = params.loc_name;
-    this.loc = {
-        lat: params.loc_latlong[1],
-        lon: params.loc_latlong[0]
-    };
+    this.latlon = params.loc_latlong.split(",");
     this.category = mostAllegible;
+    this.radius = radius;
 
     this.gatherCompetitors = gatherCompetitors;
 
@@ -75,15 +74,20 @@ function findMostAllegible(allegibles) {
 }
 
 function gatherCompetitors() {
-    var competitors = {}
 
-    gplaces.search(params).done(function (res) {
-        competitors.gplacesResults = res.results;
+    gplaces.search({
+        loc:{
+            lat: this.latlon[1],
+            lon: this.latlon[0]
+        },
+        radius: this.radius,
+        category: this.category
+    }).done(function (res) {
+        this.competitors.gplacesResults = res.results;
+        console.log("salut");
     });
-
-    facebook.search(params).done(function(data){
-        competitors.facebook = data;
-    });
-
-    return competitors;
+/*
+    facebook.search(this.params).done(function(data){
+        this.competitors.facebook = data;
+    });*/
 }
