@@ -4,15 +4,17 @@
 
 var gplaces = require('../api/gPlaces.js');
 var facebook = require('../api/facebook.js');
+var fourSquare = require('../api/fourSquare.js');
 module.exports = Store;
 
 function Store(params) {
+
 
     var keywords = params.loc_keywords.split(", ");
     var allegibles = findAllegibles(keywords, params.categories);
     var mostAllegible = findMostAllegible(allegibles);
 
-
+    this.raw = params;
     this.name = params.loc_name;
     this.loc = {
         lat: params.loc_latlong[1],
@@ -77,12 +79,17 @@ function findMostAllegible(allegibles) {
 function gatherCompetitors() {
     var competitors = {}
 
-    gplaces.search(params).done(function (res) {
+    gplaces.search(this.raw).done(function (res) {
         competitors.gplacesResults = res.results;
     });
 
-    facebook.search(params).done(function(data){
+    facebook.search(this.raw).done(function(data){
         competitors.facebook = data;
+    });
+
+    fourSquare.search(this.raw).done(function(data){
+        var venues = data.response.venues;
+        competitors.fourSquare = venues;
     });
 
     return competitors;
