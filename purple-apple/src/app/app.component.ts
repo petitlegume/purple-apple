@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {MdIconRegistry} from '@angular/material';
+import {MdIconRegistry, MdDialog} from '@angular/material';
 import { SearchService } from './services/search.service';
-import { AgmCoreModule } from 'angular2-google-maps/core';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +13,7 @@ export class AppComponent {
 
   lat: number = 0;
   lng: number = 0;
+  zoom: number = 14;
   public test: Array<string> = ["salut1", "salut2"];
   public competitors = {};
   private exParams = {
@@ -153,7 +153,7 @@ export class AppComponent {
     }
   };
 
-  constructor(private searchService: SearchService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+  constructor(public dialog: MdDialog, private searchService: SearchService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'menu',
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/ic_menu_black_24px.svg'));
@@ -165,6 +165,10 @@ export class AppComponent {
       this.lat = parseFloat(data.latlon[0]);
       this.lng = parseFloat(data.latlon[1]);
     } );
+  }
+
+  public openStatistics(){
+    this.dialog.open(AppComponent);
   }
 
 
