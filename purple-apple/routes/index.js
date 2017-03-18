@@ -24,7 +24,7 @@ router.get('/search', function(req, res) {
 });
 
 /* Testing Facebook api */
-router.get('/api/facebook', function(req, res, next){
+router.get('/facebook', function(req, res, next){
 
     params = {
         loc: {
@@ -41,7 +41,7 @@ router.get('/api/facebook', function(req, res, next){
 });
 
 /* Testing fourSquare api */
-router.get('/api/fourSquare', function(req, res, next){
+router.get('/fourSquare', function(req, res, next){
 
     params = {
         loc: {
@@ -60,4 +60,3 @@ router.get('/api/fourSquare', function(req, res, next){
 
 
 module.exports = router;
-
