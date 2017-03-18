@@ -70,7 +70,7 @@ module.exports = {
                 "name": "Breakfast Restaurant"
             },
             {
-                "id": "gcid:hamburger_restaurant",
+                "id": "4bf58dd8d48988d16c941735",
                 "name": "Hamburger Restaurant"
             },
             {
