@@ -84,7 +84,7 @@ function findMostAllegibleCategories(allegibleKeywords, categories) {
         var category = categories[i];
         categories[i].name = categories[i].name.toLowerCase();
         for (var j = 0; j < allegibleKeywords.length; j++) {
-            if ( category.name.includes( allegibleKeywords[j].keyword ) & !(allegibleKeywords[j].occurence > 2) ) {
+            if ( category.name.includes( allegibleKeywords[j].keyword ) && !(allegibleKeywords[j].occurence > 2) ) {
                 mostAllegible.push( category );
                 break;
             }
@@ -104,6 +104,7 @@ function gatherCompetitors() {
             lon: this.latlon[1]
         },
         radius: this.radius,
+        categories: this.categories,
         category: this.categories[1].name,
         categoryId: this.categories[1].id
     };
