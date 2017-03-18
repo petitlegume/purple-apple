@@ -1,8 +1,15 @@
 var config = require("./config.js");
 var assert = require("assert");
-var Promise = require('promise');
+var Promise = require('bluebird');
+
 var NearBySearch = require("googleplaces/lib/NearBySearch");
 var nearBySearch = new NearBySearch(config.apiKey, config.outputFormat);
+var nearBySearchAsync = Promise.promisify(nearBySearch);
+
+var PlaceSearch = require("googlePlaces/lib/PlaceSearch.js");
+var PlaceDetailsRequest = require("googlePlaces/lib/PlaceDetailsRequest.js");
+var placeDetailsRequest = new PlaceDetailsRequest(config.apiKey, config.outputFormat);
+var placeDetailsRequestAsync = Promise.promisify(placeDetailsRequest);
 
 module.exports = {
     search: search
@@ -16,12 +23,13 @@ function search(params) {
         keyword: params.category
     };
 
-    return new Promise(function (fulfill, reject){
-        nearBySearch(parameters, function (error, response) {
-            if (error) reject(error);
-            else fulfill(response);
-        });
-    });
-
-
+    var listings;
+    return nearBySearchAsync(parameters).then(function(_listings){
+        listings = _listings.results;
+        return Promise.map(listings, (loc, index) => {
+            return placeDetailsRequestAsync({reference: loc.reference}).then (function (detail) {
+                listings[index].details = detail.result;                        
+            });
+        })   
+    }).then(() => listings);
 }
