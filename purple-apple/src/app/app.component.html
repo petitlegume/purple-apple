@@ -10,6 +10,9 @@
     <md-input-container class="all-side-padding-sm">
       <input [(ngModel)] = "address" (setAddress) = "getAddress($event)" googleplace mdInput placeholder="What is the address?" value="Sushi">
     </md-input-container>
+    <button md-mini-fab class="example-fab" (click)="search()">
+      <md-icon svgIcon="menu"></md-icon>
+    </button>
   </md-toolbar>
   <sebm-google-map class="full-height full-width absolutePos atTop underneath" [latitude]="lat" [longitude]="lng">
     <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>

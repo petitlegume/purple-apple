@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { SearchService } from './services/search.service';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -26,6 +27,9 @@ import { AppComponent } from './app.component';
 })
 export class AppModule {
   public address : Object;
+  public searchService: SearchService;
+  public competitors: Object;
+
 
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -36,5 +40,9 @@ export class AppModule {
     this.lat =  location.lat();
     this.lng = location.lng();
     console.log("Address Object", place);
+  }
+
+  search(){
+    this.searchService.search().subscribe(data => this.competitors = data);
   }
 }
