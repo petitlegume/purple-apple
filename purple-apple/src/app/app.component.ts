@@ -167,6 +167,10 @@ export class AppComponent {
     } );
   }
 
+  public testDB(){
+    this.searchService.testDB("test");
+  }
+
   public openStatistics(){
     this.dialog.open(AppComponent);
   }

@@ -13,4 +13,9 @@ export class SearchService {
             .map((res:Response) => res.json());
     }
 
+    public testDB(yo){
+        console.log("Clicked on yo");
+        return this.http.post("http://localhost:3000/api/changeDB", {testValue: "value"});
+    }
+
 }
