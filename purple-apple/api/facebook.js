@@ -24,9 +24,9 @@ function search(params) {
 
 
     return new Promise(function (fulfill, reject){
-        request.get(url,function(error,response){
+        request.get(url,function(error,response, body){
             if (error) reject(error);
-            else fulfill(JSON.parse(response.body));
+            else fulfill(JSON.parse(body).data);
         });
     });
 
