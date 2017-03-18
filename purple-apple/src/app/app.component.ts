@@ -167,8 +167,9 @@ export class AppComponent {
     } );
   }
 
-  public testDB(){
-    this.searchService.testDB("test");
+  public testDB(yo){
+    this.searchService.testDB(yo).subscribe(
+      test => console.log("Whatever"));
   }
 
   public openStatistics(){
