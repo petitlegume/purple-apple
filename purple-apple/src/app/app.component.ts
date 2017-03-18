@@ -28,13 +28,13 @@ export class AppComponent {
   public search(){
     //foursqaure
     let dirId: number = 23;
-    this.searchService.search(this.locId, dirId).subscribe(store => {
-        this.searchService.gatherCompetitors(store).subscribe(data => {
+    //this.searchService.search(this.locId, dirId).subscribe(store => {
+        this.searchService.gatherCompetitors(null).subscribe(data => {
         this.competitors = data.competitors;
         this.lat = parseFloat(data.latlon[0]);
         this.lng = parseFloat(data.latlon[1]);
       } );
-    });
+    //});
 
   }
 

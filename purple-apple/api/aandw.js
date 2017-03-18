@@ -1,4 +1,4 @@
-{
+ var aw = {
   "loc_brandname": "A&W",
   "loc_branchid": "5545",
   "loc_name": "A&W",
