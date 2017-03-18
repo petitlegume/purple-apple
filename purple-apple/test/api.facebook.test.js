@@ -5,11 +5,10 @@ function ensureApiSearch(params, expectedResultsLength) {
   return function (done) {
   
     facebook.search(params).then(actualResults => {
-      console.log(actualResults);
       if(!expectedResultsLength) {
         should(actualResults).be.null;
       } else {
-        expect(actualResults.length).to.be.above(expectedResultsLength);
+          expect(actualResults.length).to.be.at.least(expectedResultsLength);
       }
       done();
     });
@@ -25,7 +24,7 @@ describe('facebook api', function () {
             lon: -73.57
         },
         radius: 1000,
-        category: "burger"}
-        ,  1));
+        category: "burgers"}
+        ,  9));
   });
 });

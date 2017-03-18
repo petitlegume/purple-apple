@@ -8,7 +8,7 @@ function ensureApiSearch(params, expectedResultsLength) {
             if(!expectedResultsLength) {
             should(actualResults).be.null;
         } else {
-            expect(actualResults.response.venues.length).to.be.at.least(expectedResultsLength);
+            expect(actualResults.length).to.be.at.least(expectedResultsLength);
         }
         done();
     });
