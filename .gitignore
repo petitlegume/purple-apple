@@ -1,3 +1,4 @@
 purple-apple/.idea/
 purple-apple/node_modules/
 purple-apple/dist/
+/purple-apple/src/config.ts

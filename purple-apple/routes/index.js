@@ -11,9 +11,9 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-router.get('/search', function(req, res) {
+router.post('/search', function(req, res) {
     var radius= 1000;
-    var store = new Store(dataTemplate.data, radius);
+    var store = new Store(req.body, radius);
     var promise = store.gatherCompetitors();
         promise.then(function(response){
         store.competitors.gplacesResults = response[0].results;
