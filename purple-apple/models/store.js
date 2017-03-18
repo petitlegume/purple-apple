@@ -19,7 +19,10 @@ function Store(params, radius) {
     this.category = mostAllegible;
     this.radius = radius;
 
-    this.gatherCompetitors = gatherCompetitors;
+    this.gatherCompetitors = {
+        gplacesResults:{},
+        fbResults: {}
+    };
 
     this.competitors = {};
 
