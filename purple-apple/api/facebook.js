@@ -13,13 +13,13 @@ function search(params) {
     var parameters = {
         location: [params.loc.lat, params.loc.lon],
         radius: params.radius,
-        keyword: params.keyword
+        category: params.category
     };
 
     var clientId = '641741966019779';
     var clientSecret = '14d89dc6658614ffd23cb6ca314581df';
     var url = "https://graph.facebook.com/search?fields=id,name,location,overall_rating&q=" +
-        parameters.keyword + "&type=place&center=" + parameters.location[0] + ",%20" + parameters.location[1] +
+        parameters.category + "&type=place&center=" + parameters.location[0] + ",%20" + parameters.location[1] +
         "&distance=" + parameters.radius + "&access_token=" + clientId + "|" + clientSecret;
 
 
