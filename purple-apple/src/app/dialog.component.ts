@@ -8,7 +8,9 @@ import { Component } from '@angular/core';
 export class ConfirmDialog {
 
     public title: string;
-    public message: string;
+    public gplacesRating: string;
+    public fsRating: string;
+    public yelpRating: string;
 
     constructor(public dialogRef: MdDialogRef<ConfirmDialog>) {
 

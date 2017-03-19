@@ -22,7 +22,6 @@ function search(params){
         foursquare.getVenues(parameters,function(error,res){
             if (error) reject(error);
             else {
-                console.log(res);
                 fulfill(res.response.venues);
             }
         });
